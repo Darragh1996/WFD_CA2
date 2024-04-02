@@ -19,6 +19,11 @@ app.route("/teams").get(function (req, res) {
   model.getTeams(req, res);
 });
 
+// /teams:id
+app.route("/teams/:id").get(function (req, res) {
+  model.getTeamById(req, res);
+});
+
 // /players
 
 var myServer = app.listen(3000, function () {

@@ -26,6 +26,20 @@ exports.getTeams = function (req, res) {
     if (err) throw err;
 
     res.status(200); // OK
-    res.send(JSON.stringify(rows));
+    res.json(rows);
   });
+};
+
+exports.getTeamById = function (req, res) {
+  const teamId = req.params.id;
+  connection.query(
+    `SELECT * FROM teams WHERE id = ?`,
+    [teamId],
+    function (err, rows, fields) {
+      if (err) throw err;
+
+      res.status(200); // OK
+      res.json(rows[0]);
+    }
+  );
 };

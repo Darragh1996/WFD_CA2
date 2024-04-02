@@ -10,7 +10,7 @@ jest.mock("./model/db.js", () => ({
     ]),
 }));
 
-describe("/teams route", () => {
+describe("GET /teams", () => {
   it("should return a list of teams", async () => {
     const response = await request(app).get("/teams");
 
@@ -21,5 +21,25 @@ describe("/teams route", () => {
       { id: "3", name: "Carlow" },
     ]);
     expect(response.type).toBe("application/json");
+  });
+});
+
+describe("GET /teams/:id", () => {
+  it("should return details of a specific team", async () => {
+    const teamId = 1;
+    const response = await request(app).get(`/teams/${teamId}`);
+    console.log(response);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.type).toBe("application/json");
+    expect(response.body).toHaveProperty("id", teamId);
+    expect(response.body).toHaveProperty("name");
+  });
+
+  it("should return 404 for a non-existent team", async () => {
+    const nonExistentTeamId = 9999; // big id that doesn't exist in db
+    const response = await request(app).get(`/teams/${nonExistentTeamId}`);
+
+    expect(response.statusCode).toBe(404);
   });
 });
