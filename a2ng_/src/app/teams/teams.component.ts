@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { TeamsService } from '../teams.service';
 import { Team } from '../team';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-teams',
   standalone: true,
-  imports: [],
+  imports: [UpperCasePipe],
   templateUrl: './teams.component.html',
   styleUrl: './teams.component.css',
 })

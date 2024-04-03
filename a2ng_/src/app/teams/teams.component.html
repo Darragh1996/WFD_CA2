@@ -1,1 +1,21 @@
-<p>teams works!</p>
+<h1>Teams</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (team of teams; track $index) {
+        <tr>
+            <td> <img src="../../assets/logos/{{team.name}}.png" alt=""> {{team.name}}
+                ({{team.name.slice(0,3) |
+                uppercase}})</td>
+            <td><a href="https://en.wikipedia.org/wiki/{{team.name}}_GAA">Info...</a></td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>
