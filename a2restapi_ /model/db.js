@@ -25,11 +25,12 @@ exports.getTeams = function (req, res) {
   connection.query(`SELECT * FROM teams`, function (err, rows, fields) {
     if (err) throw err;
 
-    res.status(200); // OK
+    res.status(200);
     res.json(rows);
   });
 };
 
+// GET /teams/:id
 exports.getTeamById = function (req, res) {
   const teamId = req.params.id;
   connection.query(
@@ -38,8 +39,33 @@ exports.getTeamById = function (req, res) {
     function (err, rows, fields) {
       if (err) throw err;
 
-      res.status(200); // OK
+      res.status(200);
       res.json(rows[0]);
+    }
+  );
+};
+
+// GET /players
+exports.getPlayers = function (req, res) {
+  connection.query(`SELECT * FROM players`, function (err, rows, fields) {
+    if (err) throw err;
+
+    res.status(200);
+    res.json(rows);
+  });
+};
+
+// GET /players/:id
+exports.getPlayersByTeamId = function (req, res) {
+  const teamId = req.params.teamId;
+  connection.query(
+    `SELECT * FROM players WHERE teamID = ?`,
+    [teamId],
+    function (err, rows, fields) {
+      if (err) throw err;
+
+      res.status(200);
+      res.json(rows);
     }
   );
 };

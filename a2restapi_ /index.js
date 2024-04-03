@@ -25,6 +25,14 @@ app.route("/teams/:id").get(function (req, res) {
 });
 
 // /players
+app.route("/players").get(function (req, res) {
+  model.getPlayers(req, res);
+});
+
+// /teams:id
+app.route("/players/:teamId").get(function (req, res) {
+  model.getPlayersByTeamId(req, res);
+});
 
 var myServer = app.listen(3000, function () {
   console.log("Server listening on port 3000");
