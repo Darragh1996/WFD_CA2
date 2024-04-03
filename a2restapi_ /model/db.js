@@ -69,3 +69,28 @@ exports.getPlayersByTeamId = function (req, res) {
     }
   );
 };
+
+// GET /results
+exports.getResults = function (req, res) {
+  connection.query(`SELECT * FROM results`, function (err, rows, fields) {
+    if (err) throw err;
+
+    res.status(200);
+    res.json(rows);
+  });
+};
+
+// GET /results/:div
+exports.getResultsByDivision = function (req, res) {
+  const div = req.params.div;
+  connection.query(
+    `SELECT * FROM results WHERE division = ?`,
+    [div],
+    function (err, rows, fields) {
+      if (err) throw err;
+
+      res.status(200);
+      res.json(rows);
+    }
+  );
+};
