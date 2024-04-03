@@ -1,1 +1,33 @@
-<p>players works!</p>
+<h1>Players</h1>
+<br>
+<select class="form-select" id="teams" (change)="onChange($event)">
+    <option value="All">All</option>
+    <!-- add your code here -->
+    @for (team of teams; track $index) {
+    <option [value]="team.name">{{team.name}}</option>
+    }
+</select>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Team</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Matches</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (player of displayPlayers; track $index) {
+        <tr>
+            <td><img src="../../assets/logos/{{player.teamName}}.png" alt="" style="width: 70px;"> {{player.teamName}}
+            </td>
+            <td>{{player.name}} (#{{player.squadNumber}})</td>
+            <td>{{player.age}}</td>
+            <td>{{player.matches}}</td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>
