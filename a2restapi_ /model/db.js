@@ -47,12 +47,18 @@ exports.getTeamById = function (req, res) {
 
 // GET /players
 exports.getPlayers = function (req, res) {
-  connection.query(`SELECT * FROM players`, function (err, rows, fields) {
-    if (err) throw err;
+  connection.query(
+    `SELECT players.*,
+    teams.name AS teamName
+    FROM players
+    INNER JOIN teams ON players.teamID = teams.id`,
+    function (err, rows, fields) {
+      if (err) throw err;
 
-    res.status(200);
-    res.json(rows);
-  });
+      res.status(200);
+      res.json(rows);
+    }
+  );
 };
 
 // GET /players/:id
