@@ -1,3 +1,4 @@
+<h1>Routes</h1>
 <table class="table">
     <thead>
         <tr>
@@ -12,25 +13,33 @@
             <td>/teams</td>
             <td>GET teams</td>
             <td><a href="http://localhost:3000/teams">http://localhost:3000/teams</a></td>
-            <td><button class="btn btn-primary">GET</button></td>
+            <td><button class="btn btn-primary" (click)="onClick('http://localhost:3000/teams')">GET</button></td>
         </tr>
         <tr>
             <td>/players</td>
             <td>GET players</td>
             <td><a href="http://localhost:3000/players">http://localhost:3000/players</a></td>
-            <td><button class="btn btn-primary">GET</button></td>
+            <td><button class="btn btn-primary" (click)="onClick('http://localhost:3000/players')">GET</button></td>
         </tr>
         <tr>
             <td>/results</td>
             <td>GET results</td>
             <td><a href="http://localhost:3000/results">http://localhost:3000/results</a></td>
-            <td><button class="btn btn-primary">GET</button></td>
+            <td><button class="btn btn-primary" (click)="onClick('http://localhost:3000/results')">GET</button></td>
         </tr>
         <tr>
             <td>/results/1</td>
             <td>GET results/1</td>
             <td><a href="http://localhost:3000/results/1">http://localhost:3000/results/1</a></td>
-            <td><button class="btn btn-primary">GET</button></td>
+            <td><button class="btn btn-primary" (click)="onClick('http://localhost:3000/results/1')">GET</button></td>
         </tr>
     </tbody>
 </table>
+<h4>JSON data</h4>
+<div class="overflow-auto" style="height: 600px">
+    @for (row of jsonData; track $index) {
+    <p>
+        {{row | json}}
+    </p>
+    }
+</div>
