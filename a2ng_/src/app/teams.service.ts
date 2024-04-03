@@ -4,15 +4,15 @@ import { Observable } from 'rxjs';
 import { Team } from './team';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+export class TeamsService {
+  teamURL = 'http://localhost:3000/teams/';
 
-export class TeamsService {  
-
-  constructor()
-  {
-  }
+  constructor(private http: HttpClient) {}
 
   // getTeams here
-
+  getTeams(): Observable<Team[]> {
+    return this.http.get<Team[]>(this.teamURL);
+  }
 }
