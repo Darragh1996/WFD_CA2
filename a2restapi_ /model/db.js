@@ -100,3 +100,19 @@ exports.getResultsByDivision = function (req, res) {
     }
   );
 };
+
+// PUT /results/:resultID
+exports.updateResults = function (req, res) {
+  const { resultID } = req.params;
+  const { score1, score2 } = req.body;
+  connection.query(
+    `UPDATE results SET team1Score = ?, team2Score = ? WHERE id = ?`,
+    [score1, score2, resultID],
+    function (err, rows, fields) {
+      if (err) throw err;
+
+      res.status(200);
+      res.json(rows);
+    }
+  );
+};
