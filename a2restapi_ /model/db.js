@@ -132,7 +132,7 @@ exports.login = function (req, res) {
       } else if (rows[0].password == password) {
         res.status(200).send({ message: "Login successful" });
       } else {
-        res.status(400).send("Invalid credentials");
+        res.status(400).send({ message: "Invalid credentials" });
       }
     }
   );
