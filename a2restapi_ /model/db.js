@@ -116,3 +116,24 @@ exports.updateResults = function (req, res) {
     }
   );
 };
+
+// POST /login
+exports.login = function (req, res) {
+  const { email, password } = req.body;
+  connection.query(
+    `SELECT * FROM users WHERE email = ?`,
+    [email],
+    function (err, rows, fields) {
+      if (err) {
+        console.error(err);
+        res.status(500).send("An error occurred");
+      } else if (rows.length === 0) {
+        res.status(404).send("User not found");
+      } else if (rows[0].password == password) {
+        res.status(200).send("Login successful");
+      } else {
+        res.status(400).send("Invalid credentials");
+      }
+    }
+  );
+};

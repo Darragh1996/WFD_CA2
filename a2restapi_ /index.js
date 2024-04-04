@@ -45,8 +45,14 @@ app.route("/results/:div").get(function (req, res) {
   model.getResultsByDivision(req, res);
 });
 
+// /results/resultID
 app.route("/results/:resultID").patch(function (req, res) {
   model.updateResults(req, res);
+});
+
+// /login
+app.route("/login").post(function (req, res) {
+  model.login(req, res);
 });
 
 var myServer = app.listen(3000, function () {
