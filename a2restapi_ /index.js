@@ -8,6 +8,7 @@ var app = express();
 
 // serves files in public folder
 app.use(express.static("public"));
+app.use(express.json());
 app.use(cors());
 
 //
@@ -42,6 +43,10 @@ app.route("/results").get(function (req, res) {
 // /results:div
 app.route("/results/:div").get(function (req, res) {
   model.getResultsByDivision(req, res);
+});
+
+app.route("/results/:resultID").patch(function (req, res) {
+  model.updateResults(req, res);
 });
 
 var myServer = app.listen(3000, function () {
