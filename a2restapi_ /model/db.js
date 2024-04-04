@@ -126,11 +126,11 @@ exports.login = function (req, res) {
     function (err, rows, fields) {
       if (err) {
         console.error(err);
-        res.status(500).send("An error occurred");
+        res.status(500).send({ message: "An error occurred" });
       } else if (rows.length === 0) {
-        res.status(404).send("User not found");
+        res.status(404).send({ message: "User not found" });
       } else if (rows[0].password == password) {
-        res.status(200).send("Login successful");
+        res.status(200).send({ message: "Login successful" });
       } else {
         res.status(400).send("Invalid credentials");
       }
