@@ -23,49 +23,20 @@ export class LoginComponent {
     }
   }
 
-  // onSubmit(event: Event) {
-  //   event.preventDefault();
-  //   this.http
-  //     .post(
-  //       this.loginURL,
-  //       { email: this.email, password: this.password },
-  //       { observe: 'response' }
-  //     )
-  //     .subscribe((response) => {
-  //       if (response.status == 200) {
-  //         console.log('login successful');
-  //       } else {
-  //         console.log('login failed');
-  //       }
-  //     });
-  // }
-
   onSubmit(event: Event) {
-    event.preventDefault(); // Prevent default form submission behavior
-
+    event.preventDefault();
     this.http
       .post(
         this.loginURL,
         { email: this.email, password: this.password },
         { observe: 'response' }
       )
-      .subscribe(
-        (response) => {
-          // Handle successful response
-          if (response.status === 200) {
-            console.log('Login successful');
-            // Perform actions based on successful login, e.g., navigate to another page
-          } else {
-            // Handle other successful responses that might not be login success
-            console.log('Login failed');
-          }
-        },
-        (error) => {
-          // Handle error
-          console.error('Login error:', error);
-          // You can perform different actions based on the error status or type
-          // For instance, showing an error message to the user
+      .subscribe((response) => {
+        if (response.status == 200) {
+          console.log('login successful');
+        } else {
+          console.log('login failed');
         }
-      );
+      });
   }
 }
