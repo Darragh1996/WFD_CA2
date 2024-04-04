@@ -101,13 +101,16 @@ exports.getResultsByDivision = function (req, res) {
   );
 };
 
-// PUT /results/:resultID
+// PATCH /results/:resultID
 exports.updateResults = function (req, res) {
   const { resultID } = req.params;
   const { score1, score2 } = req.body;
+  const [goals1, points1] = score1.split("-");
+  const [goals2, points2] = score1.split("-");
+
   connection.query(
-    `UPDATE results SET team1Score = ?, team2Score = ? WHERE id = ?`,
-    [score1, score2, resultID],
+    `UPDATE results SET team1Score = ?, team2Score = ?, team1Goals = ?, team1Points = ?, team2Goals = ?, team2Points = ? WHERE id = ?`,
+    [score1, score2, goals1, points1, goals2, points2, resultID],
     function (err, rows, fields) {
       if (err) throw err;
 
