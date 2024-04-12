@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,10 @@ export class LoginComponent {
   password = '';
   loginURL = 'http://localhost:3000/login';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private localStorage: LocalStorageService
+  ) {}
 
   onKeyUp(event: Event) {
     if ((event.target as HTMLSelectElement).id == 'email') {
@@ -34,6 +38,8 @@ export class LoginComponent {
       .subscribe((response) => {
         if (response.status == 200) {
           console.log('login successful');
+          this.localStorage.setItem('adminLoggedIn', true);
+          window.location.href = 'http://localhost:4200/admin';
         } else {
           console.log('login failed');
         }
