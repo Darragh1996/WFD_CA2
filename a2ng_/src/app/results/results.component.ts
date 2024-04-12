@@ -38,4 +38,23 @@ export class ResultsComponent {
       return result.round == Number(this.rounds[this.currRoundIndex]);
     });
   }
+
+  onKeyUp(event: Event) {
+    this.displayResults = this.results.filter((result) => {
+      let team1Substring = result.team1.substring(
+        0,
+        (event.target as HTMLSelectElement).value.length
+      ); // gets the begining characters of a team name
+      let team2Substring = result.team2.substring(
+        0,
+        (event.target as HTMLSelectElement).value.length
+      ); // gets the begining characters of a team name
+      return (
+        team1Substring.toUpperCase() ==
+          (event.target as HTMLSelectElement).value.toUpperCase() ||
+        team2Substring.toUpperCase() ==
+          (event.target as HTMLSelectElement).value.toUpperCase()
+      );
+    });
+  }
 }
