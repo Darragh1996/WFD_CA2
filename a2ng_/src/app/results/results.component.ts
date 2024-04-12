@@ -19,7 +19,7 @@ export class ResultsComponent {
     this.resultsService.getResults().subscribe((response) => {
       this.results = response;
       this.displayResults = response.filter((result) => {
-        return String(result.round) == '1';
+        return result.round == 1;
       });
     });
     this.resultsService.getRounds().subscribe((response) => {
@@ -35,7 +35,7 @@ export class ResultsComponent {
     }
 
     this.displayResults = this.results.filter((result) => {
-      return String(result.round) == String(this.rounds[this.currRoundIndex]);
+      return result.round == Number(this.rounds[this.currRoundIndex]);
     });
   }
 }
