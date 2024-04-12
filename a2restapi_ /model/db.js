@@ -51,7 +51,8 @@ exports.getPlayers = function (req, res) {
     `SELECT players.*,
     teams.name AS teamName
     FROM players
-    INNER JOIN teams ON players.teamID = teams.id`,
+    INNER JOIN teams ON players.teamID = teams.id
+    ORDER BY teams.name ASC, players.name ASC`,
     function (err, rows, fields) {
       if (err) throw err;
 
@@ -65,7 +66,8 @@ exports.getPlayers = function (req, res) {
 exports.getPlayersByTeamId = function (req, res) {
   const teamId = req.params.teamId;
   connection.query(
-    `SELECT * FROM players WHERE teamID = ?`,
+    `SELECT * FROM players WHERE teamID = ?
+    ORDER BY name ASC`,
     [teamId],
     function (err, rows, fields) {
       if (err) throw err;
