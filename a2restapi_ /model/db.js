@@ -97,14 +97,14 @@ exports.deleteResultById = function (req, res) {
     function (err, result) {
       if (err) {
         console.error("Error deleting result: ", err);
-        res.status(500).send("Error deleting result");
+        res.status(500).send({ message: "Error deleting result" });
         return;
       }
 
       if (result.affectedRows === 0) {
-        res.status(404).send("Result not found");
+        res.status(404).send({ message: "Result not found" });
       } else {
-        res.status(200).send("Result deleted successfully");
+        res.status(200).send({ message: "Result deleted successfully" });
       }
     }
   );
