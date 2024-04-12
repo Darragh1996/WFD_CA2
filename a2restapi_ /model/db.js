@@ -138,6 +138,7 @@ exports.getRounds = function (req, res) {
       for (let i = 0; i < rows.length; i++) {
         rounds.push(rows[i].round);
       }
+      rounds = rounds.sort(); // makes sure the rounds are in the correct order
       res.json(rounds);
     }
   );
