@@ -18,7 +18,9 @@ export class TablesComponent {
 
   constructor(private resultsService: ResultsService) {
     this.resultsService.getResults().subscribe((response) => {
-      this.results = response;
+      this.results = response.filter((result) => {
+        return result.division == 1;
+      });
 
       // I realise this for loop is a bit ridiculous but
       // I wanted to try have all the teams ranked in a single
