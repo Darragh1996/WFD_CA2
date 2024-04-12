@@ -5,6 +5,7 @@ import { PlayersComponent } from './players/players.component';
 import { ResultsComponent } from './results/results.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
+import { TablesComponent } from './tables/tables.component';
 
 export const routes: Routes = [
   { path: '', component: RoutesComponent, title: 'Routes' },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'results', component: ResultsComponent, title: 'Results' },
   { path: 'login', component: LoginComponent, title: 'Admin Login' },
   { path: 'admin', component: AdminComponent, title: 'Admin' },
+  { path: 'tables', component: TablesComponent, title: 'Tables' },
 ];
