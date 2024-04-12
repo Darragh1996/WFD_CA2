@@ -1,1 +1,29 @@
-<p>tables works!</p>
+<h1>Division 1</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Pos</th>
+            <th scope="col">Team</th>
+            <th scope="col">Pd</th>
+            <th scope="col">W</th>
+            <th scope="col">D</th>
+            <th scope="col">L</th>
+            <th scope="col">DIFF</th>
+            <th scope="col">Pts</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (ranking of finalRankings; track $index) {
+        <tr>
+            <td>{{$index + 1}}</td>
+            <td>{{ranking.team}}</td>
+            <td>{{ranking.played}}</td>
+            <td>{{ranking.wins}}</td>
+            <td>{{ranking.draws}}</td>
+            <td>{{ranking.losses}}</td>
+            <td>{{ranking.difference}}</td>
+            <td>{{ranking.points}}</td>
+        </tr>
+        }
+    </tbody>
+</table>
