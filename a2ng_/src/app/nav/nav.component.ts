@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-nav',
@@ -8,4 +9,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
-export class NavComponent {}
+export class NavComponent {
+  constructor(private localStorage: LocalStorageService) {}
+
+  isAdmin = this.localStorage.getItem('adminLoggedIn');
+}
