@@ -103,6 +103,24 @@ exports.getResultsByDivision = function (req, res) {
   );
 };
 
+exports.getRounds = function (req, res) {
+  connection.query(
+    `SELECT DISTINCT round FROM results`,
+    function (err, rows, fields) {
+      if (err) throw err;
+
+      res.status(200);
+
+      // this is so that only the round numbers are returned
+      let rounds = [];
+      for (let i = 0; i < rows.length; i++) {
+        rounds.push(rows[i].round);
+      }
+      res.json(rounds);
+    }
+  );
+};
+
 // PATCH /results/:resultID
 exports.updateResults = function (req, res) {
   const { resultID } = req.params;

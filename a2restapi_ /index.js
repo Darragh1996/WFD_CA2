@@ -40,6 +40,10 @@ app.route("/results").get(function (req, res) {
   model.getResults(req, res);
 });
 
+app.route("/results/rounds").get(function (req, res) {
+  model.getRounds(req, res);
+});
+
 // /results:div
 app.route("/results/:div").get(function (req, res) {
   model.getResultsByDivision(req, res);
