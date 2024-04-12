@@ -20,6 +20,10 @@ export class ResultsService {
     return this.http.patch(this.resultsURL + id, scores);
   }
 
+  deleteResult(id: number) {
+    return this.http.delete(this.resultsURL + id);
+  }
+
   getRounds(): Observable<String[]> {
     return this.http.get<String[]>(this.resultsURL + 'rounds');
   }

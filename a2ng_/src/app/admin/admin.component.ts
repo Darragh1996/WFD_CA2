@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ResultsService } from '../results.service';
 import { Result } from '../result';
 import { FormsModule } from '@angular/forms';
+import { response } from 'express';
 
 @Component({
   selector: 'app-admin',
@@ -24,6 +25,7 @@ export class AdminComponent {
     });
     this.resultsService.getRounds().subscribe((response) => {
       this.rounds = response;
+      console.log(this.rounds);
     });
   }
 
@@ -34,6 +36,18 @@ export class AdminComponent {
       .subscribe((response) => {
         console.log(response);
       });
+  }
+
+  delete(resultId: number) {
+    // remove the result client side
+    this.resultsService.deleteResult(resultId).subscribe((response) => {
+      this.results = this.results.filter((result) => {
+        return result.id != resultId;
+      });
+      this.displayResults = this.displayResults.filter((result) => {
+        return result.id != resultId;
+      });
+    });
   }
 
   onChange(event: Event) {

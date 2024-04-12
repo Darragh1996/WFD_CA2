@@ -30,7 +30,7 @@
             <td><img src="../../assets/logos/{{result.team2}}.png" alt=""> {{result.team2}}</td>
             <td>D{{result.division}} Rd{{result.round}}</td>
             <td><button class="btn btn-primary" (click)="update(result)">Update</button></td>
-            <td><button class="btn btn-primary">Delete</button></td>
+            <td><button class="btn btn-primary" (click)="delete(result.id)">Delete</button></td>
         </tr>
         }
 
