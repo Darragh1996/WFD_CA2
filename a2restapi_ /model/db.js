@@ -88,6 +88,28 @@ exports.getResults = function (req, res) {
   });
 };
 
+// DELETE /results/:resultId
+exports.deleteResultById = function (req, res) {
+  const resultId = req.params.resultId;
+  connection.query(
+    `DELETE FROM results WHERE id = ?`,
+    [resultId],
+    function (err, result) {
+      if (err) {
+        console.error("Error deleting result: ", err);
+        res.status(500).send("Error deleting result");
+        return;
+      }
+
+      if (result.affectedRows === 0) {
+        res.status(404).send("Result not found");
+      } else {
+        res.status(200).send("Result deleted successfully");
+      }
+    }
+  );
+};
+
 // GET /results/:div
 exports.getResultsByDivision = function (req, res) {
   const div = req.params.div;

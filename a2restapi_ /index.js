@@ -40,6 +40,10 @@ app.route("/results").get(function (req, res) {
   model.getResults(req, res);
 });
 
+app.route("/results/:resultId").delete(function (req, res) {
+  model.deleteResultById(req, res);
+});
+
 app.route("/results/rounds").get(function (req, res) {
   model.getRounds(req, res);
 });
