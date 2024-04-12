@@ -36,10 +36,8 @@
     </tbody>
 </table>
 <h4>JSON data</h4>
-<div class="overflow-auto" style="height: 600px">
-    @for (row of jsonData; track $index) {
-    <p>
-        {{row | json}}
-    </p>
-    }
+<div class="overflow-auto json-container">
+    <pre>
+        {{jsonData}}
+    </pre>
 </div>

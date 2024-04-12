@@ -10,13 +10,13 @@ import { JsonPipe } from '@angular/common';
   styleUrl: './routes.component.css',
 })
 export class RoutesComponent {
-  jsonData: Object[] = [];
+  jsonData: String = '[]';
 
   constructor(private http: HttpClient) {}
 
   onClick(url: string) {
     this.http.get<Object[]>(url).subscribe((response) => {
-      this.jsonData = response;
+      this.jsonData = JSON.stringify(response, null, 4);
     });
   }
 }
