@@ -15,4 +15,8 @@ export class ResultsService {
   getResults(): Observable<Result[]> {
     return this.http.get<Result[]>(this.teamURL);
   }
+
+  updateResult(id: number, scores: Object) {
+    return this.http.patch(this.teamURL + id, scores);
+  }
 }

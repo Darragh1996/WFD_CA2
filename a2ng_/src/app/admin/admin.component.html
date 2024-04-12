@@ -1,0 +1,33 @@
+<h1>Admin Results</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Round</th>
+            <th scope="col">Team1</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Team2</th>
+            <th scope="col">Division & Round</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (result of results; track $index) {
+        <tr>
+            <td>{{result.date}}</td>
+            <td>{{result.round}}</td>
+            <td><img src="../../assets/logos/{{result.team1}}.png" alt=""> {{result.team1}}</td>
+            <td><input type="text" class="form-control" [(ngModel)]="result.team1Score" id="team1Score"></td>
+            <td><input type="text" class="form-control" [(ngModel)]="result.team2Score" id="team2Score"></td>
+            <td><img src="../../assets/logos/{{result.team2}}.png" alt=""> {{result.team2}}</td>
+            <td>D{{result.division}} Rd{{result.round}}</td>
+            <td><button class="btn btn-primary" (click)="update(result)">Update</button></td>
+            <td><button class="btn btn-primary">Delete</button></td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>
