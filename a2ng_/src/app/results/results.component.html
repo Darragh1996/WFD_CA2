@@ -1,4 +1,16 @@
 <h1>Results</h1>
+@if (rounds.length > 0) {
+<div>
+    <!-- this mess of a modulus operation is a work around for a javascript bug where 
+    for some reason the modulus of a negative number returns a negative number -->
+    <button class="btn btn-primary" (click)="onClick(-1)">
+        << Round {{rounds[(((currRoundIndex - 1) % rounds.length) + rounds.length) % rounds.length]}}</button>
+            Round {{rounds[currRoundIndex]}}
+            <button class="btn btn-primary" (click)="onClick(1)">Round {{rounds[(currRoundIndex + 1) % rounds.length]}}
+                >></button>
+</div>
+
+}
 <table class="table">
     <thead>
         <tr>
@@ -12,7 +24,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (result of results; track $index) {
+        @for (result of displayResults; track $index) {
         <tr>
             <td>{{result.date}}</td>
             <td>{{result.round}}</td>
