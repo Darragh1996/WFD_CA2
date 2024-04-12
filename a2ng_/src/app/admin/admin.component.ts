@@ -12,10 +12,18 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminComponent {
   results: Result[] = [];
+  displayResults: Result[] = [];
+  rounds: String[] = [];
 
   constructor(private resultsService: ResultsService) {
     this.resultsService.getResults().subscribe((response) => {
       this.results = response;
+      this.displayResults = response.filter((result) => {
+        return String(result.round) == '1';
+      });
+    });
+    this.resultsService.getRounds().subscribe((response) => {
+      this.rounds = response;
     });
   }
 
@@ -26,5 +34,11 @@ export class AdminComponent {
       .subscribe((response) => {
         console.log(response);
       });
+  }
+
+  onChange(event: Event) {
+    this.displayResults = this.results.filter((result) => {
+      return String(result.round) == (event.target as HTMLSelectElement).value;
+    });
   }
 }

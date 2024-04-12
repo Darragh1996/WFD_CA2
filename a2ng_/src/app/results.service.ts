@@ -7,16 +7,20 @@ import { Result } from './result';
   providedIn: 'root',
 })
 export class ResultsService {
-  teamURL = 'http://localhost:3000/results/';
+  resultsURL = 'http://localhost:3000/results/';
 
   constructor(private http: HttpClient) {}
 
   // getTeams here
   getResults(): Observable<Result[]> {
-    return this.http.get<Result[]>(this.teamURL);
+    return this.http.get<Result[]>(this.resultsURL);
   }
 
   updateResult(id: number, scores: Object) {
-    return this.http.patch(this.teamURL + id, scores);
+    return this.http.patch(this.resultsURL + id, scores);
+  }
+
+  getRounds(): Observable<String[]> {
+    return this.http.get<String[]>(this.resultsURL + 'rounds');
   }
 }

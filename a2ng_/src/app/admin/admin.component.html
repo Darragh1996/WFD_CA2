@@ -1,4 +1,10 @@
 <h1>Admin Results</h1>
+<select class="form-select" id="teams" (change)="onChange($event)">
+    @for (round of rounds; track $index) {
+    <option [value]="round">{{round}}</option>
+    }
+</select>
+<br>
 <table class="table">
     <thead>
         <tr>
@@ -14,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (result of results; track $index) {
+        @for (result of displayResults; track $index) {
         <tr>
             <td>{{result.date}}</td>
             <td>{{result.round}}</td>
