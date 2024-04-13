@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { TablesComponent } from './tables/tables.component';
 import { StatsComponent } from './stats/stats.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
   { path: '', component: RoutesComponent, title: 'Routes' },
@@ -18,4 +19,5 @@ export const routes: Routes = [
   { path: 'admin', component: AdminComponent, title: 'Admin' },
   { path: 'tables', component: TablesComponent, title: 'Tables' },
   { path: 'stats', component: StatsComponent, title: 'Stats' },
+  { path: '**', component: NotFoundComponent, title: '404 Not Found' },
 ];
