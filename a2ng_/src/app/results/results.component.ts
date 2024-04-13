@@ -14,6 +14,7 @@ export class ResultsComponent {
   displayResults: Result[] = [];
   rounds: String[] = [];
   currRoundIndex: number = 0;
+  currSearch: string = '';
 
   constructor(private resultsService: ResultsService) {
     this.resultsService.getResults().subscribe((response) => {
@@ -34,22 +35,25 @@ export class ResultsComponent {
       this.currRoundIndex = this.rounds.length - 1;
     }
 
+    // this filter returns only the results that match the current select round
+    // and whatever is currently typed in the team search bar
     this.displayResults = this.results.filter((result) => {
-      return result.round == Number(this.rounds[this.currRoundIndex]);
+      return (
+        result.round == Number(this.rounds[this.currRoundIndex]) &&
+        (result.team1.toUpperCase().includes(this.currSearch.toUpperCase()) ||
+          result.team2.toUpperCase().includes(this.currSearch.toUpperCase()))
+      );
     });
   }
 
   onKeyUp(event: Event) {
+    this.currSearch = (event.target as HTMLInputElement).value;
+    // this filter returns only the results that match the current select round
+    // and whatever is currently typed in the team search bar
     this.displayResults = this.results.filter((result) => {
       return (
-        (result.team1
-          .toUpperCase()
-          .includes((event.target as HTMLInputElement).value.toUpperCase()) ||
-          result.team2
-            .toUpperCase()
-            .includes(
-              (event.target as HTMLInputElement).value.toUpperCase()
-            )) &&
+        (result.team1.toUpperCase().includes(this.currSearch.toUpperCase()) ||
+          result.team2.toUpperCase().includes(this.currSearch.toUpperCase())) &&
         String(result.round) == this.rounds[this.currRoundIndex]
       );
     });
