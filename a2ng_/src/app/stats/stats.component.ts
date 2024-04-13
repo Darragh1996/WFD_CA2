@@ -20,8 +20,8 @@ export class StatsComponent {
 
   svg: any;
   margin = 50;
-  width = 500 - this.margin * 2;
-  height = 400 - this.margin * 2;
+  width = 400;
+  height = 400;
 
   constructor(
     private resultsService: ResultsService,
@@ -39,7 +39,6 @@ export class StatsComponent {
           result.team2 == this.currSelectedTeam
         );
       });
-      // this.createBarChart(this.displayResult);
     });
   }
 
@@ -47,7 +46,7 @@ export class StatsComponent {
     this.svg = d3
       .select('.barChart')
       .append('svg')
-      .attr('width', this.width + this.margin * 2)
+      .attr('width', 100 * this.displayResult.length + 50)
       .attr('height', this.height + this.margin * 2)
       .append('g')
       .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')')
@@ -81,7 +80,7 @@ export class StatsComponent {
       .attr('transform', `translate(0, ${this.height})`)
       .call(d3.axisTop(x))
       .selectAll('text')
-      .attr('transform', 'translate(0,-300)')
+      .attr('transform', 'translate(0,-400)')
       .style('text-anchor', 'middle')
       .attr('dy', '-0.5em')
       .attr('dx', '0em');
