@@ -6,6 +6,7 @@ import { ResultsComponent } from './results/results.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { TablesComponent } from './tables/tables.component';
+import { StatsComponent } from './stats/stats.component';
 
 export const routes: Routes = [
   { path: '', component: RoutesComponent, title: 'Routes' },
@@ -16,4 +17,5 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'Admin Login' },
   { path: 'admin', component: AdminComponent, title: 'Admin' },
   { path: 'tables', component: TablesComponent, title: 'Tables' },
+  { path: 'stats', component: StatsComponent, title: 'Stats' },
 ];
