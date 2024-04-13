@@ -41,6 +41,15 @@ export class StatsComponent {
       .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')')
       .style('border', '1px solid black');
 
+    this.svg
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', this.margin / 2 - 70) // Adjust y position to avoid overlap
+      .attr('x', -this.height / 2) // Center the label vertically
+      .attr('dy', '1em')
+      .style('text-anchor', 'middle')
+      .text('Total Points');
+
     const x = d3
       .scaleBand()
       .range([0, this.width])
