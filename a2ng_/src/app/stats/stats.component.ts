@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ResultsService } from '../results.service';
+import { TeamsService } from '../teams.service';
 import { Result } from '../result';
+import { Team } from '../team';
 import * as d3 from 'd3';
 
 @Component({
@@ -12,22 +14,32 @@ import * as d3 from 'd3';
 })
 export class StatsComponent {
   results: Result[] = [];
-  currSelectedTeam: String = 'Donegal';
+  displayResult: Result[] = [];
+  teams: Team[] = [];
+  currSelectedTeam: String = '';
 
   svg: any;
   margin = 50;
   width = 500 - this.margin * 2;
   height = 400 - this.margin * 2;
 
-  constructor(private resultsService: ResultsService) {
+  constructor(
+    private resultsService: ResultsService,
+    private teamsService: TeamsService
+  ) {
+    this.teamsService.getTeams().subscribe((response) => {
+      this.teams = response;
+      this.createBarChart(this.results);
+    });
     this.resultsService.getResults().subscribe((response) => {
-      this.results = response.filter((result) => {
+      this.results = response;
+      this.displayResult = response.filter((result) => {
         return (
           result.team1 == this.currSelectedTeam ||
           result.team2 == this.currSelectedTeam
         );
       });
-      this.createBarChart(this.results);
+      // this.createBarChart(this.displayResult);
     });
   }
 
@@ -177,5 +189,22 @@ export class StatsComponent {
           );
       }
     });
+  }
+
+  onChange(event: Event) {
+    if ((event.target as HTMLSelectElement).value == 'Select a team...') {
+      this.currSelectedTeam = '';
+    } else {
+      this.currSelectedTeam = (event.target as HTMLSelectElement).value;
+      this.displayResult = this.results.filter((result) => {
+        return (
+          result.team1 == this.currSelectedTeam ||
+          result.team2 == this.currSelectedTeam
+        );
+      });
+      let container = document.getElementsByClassName('barChart')[0];
+      container.innerHTML = ''; // clears any remaining elements in container
+      this.createBarChart(this.displayResult);
+    }
   }
 }
