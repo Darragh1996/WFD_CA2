@@ -58,10 +58,12 @@ export class StatsComponent {
     this.svg
       .append('g')
       .attr('transform', `translate(0, ${this.height})`)
-      .call(d3.axisBottom(x))
+      .call(d3.axisTop(x))
       .selectAll('text')
-      .attr('transform', 'translate(10,0)')
-      .style('text-anchor', 'end');
+      .attr('transform', 'translate(0,-300)')
+      .style('text-anchor', 'middle')
+      .attr('dy', '-0.5em')
+      .attr('dx', '0em');
 
     const y = d3.scaleLinear().domain([0, 30]).range([this.height, 0]);
 
@@ -106,6 +108,23 @@ export class StatsComponent {
           )
           .attr('fill', 'blue');
 
+        this.svg
+          .append('text')
+          .attr('x', xValue + barWidth / 2)
+          .attr(
+            'y',
+            y(
+              d.team1 === this.currSelectedTeam
+                ? d.team1Goals * 3 + d.team1Points
+                : d.team2Goals * 3 + d.team2Points
+            ) + 20
+          )
+          .attr('text-anchor', 'middle')
+          .attr('fill', 'white')
+          .text(
+            d.team1 === this.currSelectedTeam ? d.team1Score : d.team2Score
+          );
+
         // bar for opposing team
         this.svg
           .append('rect')
@@ -130,6 +149,23 @@ export class StatsComponent {
               )
           )
           .attr('fill', 'red');
+
+        this.svg
+          .append('text')
+          .attr('x', xValue + barWidth * (3 / 2))
+          .attr(
+            'y',
+            y(
+              d.team1 === this.currSelectedTeam
+                ? d.team2Goals * 3 + d.team2Points
+                : d.team1Goals * 3 + d.team1Points
+            ) + 20
+          )
+          .attr('text-anchor', 'middle')
+          .attr('fill', 'white')
+          .text(
+            d.team1 === this.currSelectedTeam ? d.team2Score : d.team1Score
+          );
       }
     });
   }
