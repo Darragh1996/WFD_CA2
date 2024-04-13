@@ -46,7 +46,7 @@ export class StatsComponent {
     this.svg = d3
       .select('.barChart')
       .append('svg')
-      .attr('width', 100 * this.displayResult.length + 50)
+      .attr('width', this.width + this.margin * 2)
       .attr('height', this.height + this.margin * 2)
       .append('g')
       .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')')
@@ -190,6 +190,120 @@ export class StatsComponent {
     });
   }
 
+  createScatterPlot(data: Result[]) {
+    this.svg = d3
+      .select('.scatterPlot')
+      .append('svg')
+      .attr('width', this.width + this.margin * 2)
+      .attr('height', this.height + this.margin * 2)
+      .append('g')
+      .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
+
+    const x = d3
+      .scaleBand()
+      .range([0, this.width])
+      .domain(
+        data.map(
+          (d) =>
+            'Rd ' +
+            d.round +
+            ' vs ' +
+            (d.team1 === this.currSelectedTeam ? d.team2 : d.team1)
+        )
+      )
+      .padding(0.2);
+
+    this.svg
+      .append('g')
+      .attr('transform', `translate(0, ${this.height})`)
+      .call(d3.axisTop(x))
+      .selectAll('text')
+      .attr('transform', 'translate(0,-400)')
+      .style('text-anchor', 'middle');
+
+    const y = d3.scaleLinear().domain([0, 15]).range([this.height, 0]);
+
+    this.svg.append('g').call(d3.axisLeft(y));
+
+    let yOffSet = 0;
+
+    const dots = this.svg.append('g');
+    dots
+      .selectAll('dot')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', (d: Result) =>
+        x(
+          'Rd ' +
+            d.round +
+            ' vs ' +
+            (d.team1 === this.currSelectedTeam ? d.team2 : d.team1)
+        )
+      )
+      .attr('cy', (d: Result) => {
+        if (d.team1 == this.currSelectedTeam) {
+          if (
+            d.team1Goals * 3 + d.team1Points >
+            d.team2Goals * 3 + d.team2Points
+          ) {
+            yOffSet += 2;
+          } else if (
+            d.team1Goals * 3 + d.team1Points ==
+            d.team2Goals * 3 + d.team2Points
+          ) {
+            yOffSet += 1;
+          }
+        } else {
+          if (
+            d.team2Goals * 3 + d.team2Points >
+            d.team1Goals * 3 + d.team1Points
+          ) {
+            yOffSet += 2;
+          } else if (
+            d.team2Goals * 3 + d.team2Points ==
+            d.team1Goals * 3 + d.team1Points
+          ) {
+            yOffSet += 1;
+          }
+        }
+        return y(yOffSet);
+      })
+      .attr('r', 7)
+      .style('opacity', 0.5)
+      .style('fill', (d: Result) => {
+        if (d.team1 == this.currSelectedTeam) {
+          if (
+            d.team1Goals * 3 + d.team1Points >
+            d.team2Goals * 3 + d.team2Points
+          ) {
+            return 'green';
+          } else if (
+            d.team1Goals * 3 + d.team1Points ==
+            d.team2Goals * 3 + d.team2Points
+          ) {
+            return 'yellow';
+          } else {
+            return 'red';
+          }
+        } else {
+          if (
+            d.team2Goals * 3 + d.team2Points >
+            d.team1Goals * 3 + d.team1Points
+          ) {
+            return 'green';
+          } else if (
+            d.team2Goals * 3 + d.team2Points ==
+            d.team1Goals * 3 + d.team1Points
+          ) {
+            return 'yellow';
+          } else {
+            return 'red';
+          }
+        }
+      });
+  }
+
   onChange(event: Event) {
     if ((event.target as HTMLSelectElement).value == 'Select a team...') {
       this.currSelectedTeam = '';
@@ -201,9 +315,12 @@ export class StatsComponent {
           result.team2 == this.currSelectedTeam
         );
       });
-      let container = document.getElementsByClassName('barChart')[0];
-      container.innerHTML = ''; // clears any remaining elements in container
+      let barChart = document.getElementsByClassName('barChart')[0];
+      barChart.innerHTML = ''; // clears any remaining elements in container
+      let scatterPlot = document.getElementsByClassName('scatterPlot')[0];
+      scatterPlot.innerHTML = ''; // clears any remaining elements in container
       this.createBarChart(this.displayResult);
+      this.createScatterPlot(this.displayResult);
     }
   }
 }
